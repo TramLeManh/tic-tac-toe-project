@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-
 export default function Player({ playerName, symbol }) {
     const [name, setName] = useState(playerName);
     const [isEdit, setEdit] = useState(false);
-    function handleBlur(event) {
+    function handleChange(event) {
         setName(event.target.value);
-        setEdit(false);
     }
     return (
         <li>
@@ -16,7 +14,7 @@ export default function Player({ playerName, symbol }) {
                     required
                     defaultValue={name}
                     autoFocus
-                    onBlur={handleBlur}
+                    onChange={handleChange}
                 />
             ) : (
                 <span className="player-name font-[1000]">{name}</span>
