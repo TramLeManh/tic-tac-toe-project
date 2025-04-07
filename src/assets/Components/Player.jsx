@@ -1,23 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 export default function Player({ playerName, symbol }) {
+    const [name, setName] = useState(playerName);
     const [isEdit, setEdit] = useState(false);
-    const [name,setName] = useState(playerName)
-    let text = <span className="player-name">{name}</span>
-    if (isEdit) {
-        text = <input id="playerName"  type='text' required defaultValue={name} ></input>
+    function handleChange(event) {
+        setName(event.target.value);
     }
-    function handleClick() {
-        if(isEdit){
-            setName(document.getElementById('playerName').value);
-        }
-        return setEdit(isEdit=>!isEdit);   
-    }
-
     return (
         <li>
-            {text}
+            {isEdit ? (
+                <input
+                    className="player-name font-[1000] bg-sky-500/10"
+                    type="text"
+                    required
+                    defaultValue={name}
+                    autoFocus
+                    onChange={handleChange}
+                />
+            ) : (
+                <span className="player-name font-[1000]">{name}</span>
+            )}
             <span className="player-symbol">{symbol}</span>
-            <button onClick={handleClick}>Edit</button>
+            <button onClick={() => setEdit(edit=>!edit)}>{isEdit? "Save": "Edit"}</button>
         </li>
-    )
+    );
 }
