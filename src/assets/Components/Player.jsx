@@ -11,6 +11,7 @@ export default function Player({ playerName, symbol }) {
         <li>
             {isEdit ? (
                 <input
+                    className="player-name font-[1000] bg-sky-500/10"
                     type="text"
                     required
                     defaultValue={name}
@@ -18,7 +19,7 @@ export default function Player({ playerName, symbol }) {
                     onBlur={handleBlur}
                 />
             ) : (
-                <span className="player-name font-[1000] bg-sky-500/10">{name}</span>
+                <span className="player-name font-[1000]">{name}</span>
             )}
             <span className="player-symbol">{symbol}</span>
             <button onClick={() => setEdit(edit=>!edit)}>{isEdit? "Save": "Edit"}</button>
