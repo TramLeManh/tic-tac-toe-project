@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-export default function Player({ playerName, symbol }) {
+export default function Player({ playerName, symbol, isActive }) {
     const [name, setName] = useState(playerName);
     const [isEdit, setEdit] = useState(false);
     function handleChange(event) {
@@ -17,10 +17,14 @@ export default function Player({ playerName, symbol }) {
                     onChange={handleChange}
                 />
             ) : (
-                <span className="player-name font-[1000]">{name}</span>
+                <li className={isActive ? "active" : undefined}>
+                    <span className="player-name font-[500]">{name}</span>
+                </li>
             )}
             <span className="player-symbol">{symbol}</span>
-            <button onClick={() => setEdit(edit=>!edit)}>{isEdit? "Save": "Edit"}</button>
+            <button onClick={() => setEdit((edit) => !edit)}>
+                {isEdit ? "Save" : "Edit"}
+            </button>
         </li>
     );
 }
