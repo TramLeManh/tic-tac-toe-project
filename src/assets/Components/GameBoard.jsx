@@ -1,9 +1,16 @@
 import { useState } from "react";
-
-
+const initialGameBoard = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+];
 //GameBoard đang quản lý selectSquare. Nên cần để state ở upper cao hơn
-export default function GameBoard({onSelectSquare}) {
-    const [gameBoard,setGameBoard] = useState(initialGameBoard);
+export default function GameBoard({onSelectSquare,turn}) {
+    let gameBoard= initialGameBoard
+    for(const t of turn){
+        const {row,col} = t.square;
+        gameBoard[row][col]=t.player;
+    }
     // function handleSelectSquare(rowIndex,colIndex) {
     //     setGameBoard((prevGameBoard)=>{
     //         const updatedBoard = [...prevGameBoard.map(innerArray=>[...innerArray])];
@@ -19,7 +26,7 @@ export default function GameBoard({onSelectSquare}) {
                     <ol>
                         {row.map((playerSymbol, colIndex) => (
                             <li key={colIndex}>
-                                <button onClick={()=>{handleSelectSquare(rowIndex,colIndex)}}>{playerSymbol}</button>
+                                <button onClick={()=>{onSelectSquare(rowIndex,colIndex)}}>{playerSymbol}</button>
                             </li>
                         ))}
                     </ol>

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 export default function Player({ playerName, symbol, isActive }) {
     const [name, setName] = useState(playerName);
     const [isEdit, setEdit] = useState(false);
+    const [gameTurn,setgameTurn] = useState([]);
     function handleChange(event) {
         setName(event.target.value);
     }
     return (
-        <li>
+        <>
             {isEdit ? (
                 <input
                     className="player-name font-[1000] bg-sky-500/10"
@@ -25,6 +26,6 @@ export default function Player({ playerName, symbol, isActive }) {
             <button onClick={() => setEdit((edit) => !edit)}>
                 {isEdit ? "Save" : "Edit"}
             </button>
-        </li>
+        </>
     );
 }
