@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-export default function Player({ playerName, symbol, isActive }) {
+export default function Player({ playerName, symbol, isActive,handlePlayerName }) {
     const [name, setName] = useState(playerName);
     const [isEdit, setEdit] = useState(false);
     const [gameTurn,setgameTurn] = useState([]);
     function handleChange(event) {
         setName(event.target.value);
+        
     }
     return (
         <>
@@ -23,7 +24,7 @@ export default function Player({ playerName, symbol, isActive }) {
                 </li>
             )}
             <span className="player-symbol">{symbol}</span>
-            <button onClick={() => setEdit((edit) => !edit)}>
+            <button onClick={() => {setEdit((edit) => !edit),handlePlayerName(symbol,name)}}>
                 {isEdit ? "Save" : "Edit"}
             </button>
         </>
