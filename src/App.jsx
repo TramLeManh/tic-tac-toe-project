@@ -2,10 +2,22 @@ import { useState } from "react";
 import GameBoard from "./assets/Components/GameBoard";
 import Player from "./assets/Components/Player";
 import Log from "./assets/Components/log";
+import { WINNING_COMBINATIONS } from "./data/Win";
 function App() {
+
   // const [activePlayer, setActivePlayer] = useState("X");
   const [gameTurn, setgameTurn] = useState([]);
   const activePlayer = handlePlayer(gameTurn);
+  const initialGameBoard = [
+    [null, null, null],
+    [null, null, null],
+    [null, null, null],
+  ];
+  let gameBoard = initialGameBoard;
+  for (const t of gameTurn) {
+    const { row, col } = t.square;
+    gameBoard[row][col] = t.player;
+  }
   function handleSelectSquare(rowIndex, colIndex) {
     // setActivePlayer((curPlayer) => (curPlayer === "X" ? "O" : "X"));
     setgameTurn((prev) => {
@@ -26,6 +38,15 @@ function App() {
     }
     return currentPlayer;
   }
+  let player = null;
+  for (const w of WINNING_COMBINATIONS) {
+    const first = gameBoard[w[0].row][w[0].column]
+    const second = gameBoard[w[1].row][w[1].column]
+    const third = gameBoard[w[2].row][w[2].column]
+    if (first && first === second & second === third) {
+      player = first
+    }
+  }
   return (
     <main>
       <div id="game-container">
@@ -41,12 +62,12 @@ function App() {
             isActive={activePlayer === "O"}
           ></Player>
         </ol>
-        GAMEBOARD
+        <p className="flex items-center justify-center">  {player ? `${player} win` : "GameBoard"} </p>
       </div>
       <GameBoard
         onSelectSquare={handleSelectSquare}
         playerSymbol={activePlayer}
-        turn={gameTurn}
+        GameBoard={gameBoard}
       ></GameBoard>
       <Log turns={gameTurn}></Log>
     </main>

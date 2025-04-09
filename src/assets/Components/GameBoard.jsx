@@ -1,17 +1,8 @@
 import { useState } from "react";
-const initialGameBoard = [
-    [null, null, null],
-    [null, null, null],
-    [null, null, null],
-];
+
 //GameBoard đang quản lý selectSquare. Nên cần để state ở upper cao hơn
-export default function GameBoard({onSelectSquare,turn}) {
-    let gameBoard= initialGameBoard
-    for(const t of turn){
-        const {row,col} = t.square;
-        gameBoard[row][col]=t.player;
-    }
-    // function handleSelectSquare(rowIndex,colIndex) {
+export default function GameBoard({onSelectSquare,GameBoard}) {
+     // function handleSelectSquare(rowIndex,colIndex) {
     //     setGameBoard((prevGameBoard)=>{
     //         const updatedBoard = [...prevGameBoard.map(innerArray=>[...innerArray])];
     //         updatedBoard[rowIndex][colIndex]=playerSymbol;
@@ -21,18 +12,18 @@ export default function GameBoard({onSelectSquare,turn}) {
     // }
     return (
         <ol id="game-board">
-            {gameBoard.map((row, rowIndex) => (
+            {GameBoard.map((row, rowIndex) => (
                 <li key={rowIndex}>
                     <ol>
                         {row.map((playerSymbol, colIndex) => (
                             <li key={colIndex}>
                                 <button 
                                     onClick={() => {
-                                        if (gameBoard[rowIndex][colIndex] === null) {
+                                        if (GameBoard[rowIndex][colIndex] === null) {
                                             onSelectSquare(rowIndex, colIndex);
                                         }
                                     }}
-                                    disabled={gameBoard[rowIndex][colIndex] !== null}
+                                    disabled={GameBoard[rowIndex][colIndex] !== null}
                                 >
                                     {playerSymbol}
                                 </button>
