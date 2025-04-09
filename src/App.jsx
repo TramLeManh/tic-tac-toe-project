@@ -33,6 +33,9 @@ function App() {
     });
   }
   function handleRestart(){
+    gameBoard=initialGameBoard
+    setgameTurn([])
+    winner=hasDraw=null
   }
   function handlePlayer(gameTurn) {
     let currentPlayer = "X";
